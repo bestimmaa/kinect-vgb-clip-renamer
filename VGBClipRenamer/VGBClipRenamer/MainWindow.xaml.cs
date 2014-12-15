@@ -72,13 +72,12 @@ namespace VGBClipRenamer
                 Trace.WriteLine("VGBCLIP file found!");
 
                 xefFilepathOld = filepath;
-                // construct a filepath to the matching vgclip file
+                // construct a filepath to the matching xef file
                 String xefFilenameOld = System.IO.Path.GetFileNameWithoutExtension(xefFilepathOld) + ".xef";
                 xefFilepathOld = System.IO.Path.Combine(new String[] { System.IO.Path.GetDirectoryName(filepath), xefFilenameOld });
-                // check if vgbclip file exists
+                // check if xef file exists
                 Trace.WriteLine(xefFilepathOld);
-                if (System.IO.File.Exists(xefFilepathOld))
-                {
+                if (System.IO.File.Exists(xefFilepathOld)){
                     Trace.WriteLine("Found a matching XEF file");
                 }
             }
@@ -107,11 +106,14 @@ namespace VGBClipRenamer
 
         private void updateUI()
         {
+            if (textBox.Text.Equals("")) this.buttonRename.IsEnabled = false;
+            else this.buttonRename.IsEnabled = true;
         }
 
         private void textBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             targetFilename = this.textBox.Text;
+            updateUI();
         }
 
         private void renameButtonClicked(object sender, RoutedEventArgs e)
